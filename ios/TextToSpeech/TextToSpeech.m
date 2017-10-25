@@ -62,7 +62,7 @@ RCT_EXPORT_METHOD(speak:(NSString *)text
     }
     
     [[AVAudioSession sharedInstance] 
-     overrideOutputAudioPort:AVAudioSessionPortOverrideNone
+     overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker
                        error:nil];
 
     [self.synthesizer speakUtterance:utterance];
