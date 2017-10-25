@@ -27,6 +27,12 @@ RCT_EXPORT_MODULE()
 {
     self = [super init];
     if (self) {
+        [[AVAudioSession sharedInstance]
+         setCategory:AVAudioSessionCategoryPlayAndRecord
+         error:nil];
+        [[AVAudioSession sharedInstance]
+         overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker
+         error:nil];
         _synthesizer = [AVSpeechSynthesizer new];
         _synthesizer.delegate = self;
         _ducking = false;
@@ -61,10 +67,6 @@ RCT_EXPORT_METHOD(speak:(NSString *)text
         utterance.pitchMultiplier = _defaultPitch;
     }
     
-    [[AVAudioSession sharedInstance] 
-     overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker
-                       error:nil];
-
     [self.synthesizer speakUtterance:utterance];
     resolve([NSNumber numberWithUnsignedLong:utterance.hash]);
 }
