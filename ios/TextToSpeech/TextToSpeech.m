@@ -60,6 +60,10 @@ RCT_EXPORT_METHOD(speak:(NSString *)text
     if (_defaultPitch) {
         utterance.pitchMultiplier = _defaultPitch;
     }
+    
+    [[AVAudioSession sharedInstance] 
+     overrideOutputAudioPort:AVAudioSessionPortOverrideNone
+                       error:nil];
 
     [self.synthesizer speakUtterance:utterance];
     resolve([NSNumber numberWithUnsignedLong:utterance.hash]);
